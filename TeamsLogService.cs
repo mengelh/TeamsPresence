@@ -53,6 +53,7 @@ namespace TeamsPresence
                     while (true)
                     {
                         latch.WaitOne();
+                        System.Threading.Thread.Sleep(100);
                         lock (lockMe)
                         {
                             String line;

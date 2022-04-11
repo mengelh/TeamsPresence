@@ -18,15 +18,14 @@ namespace TeamsPresence
             Client.AddDefaultHeader("Authorization", $"Bearer {Token}");
             Client.UseNewtonsoftJson();
         }
-
-        public void UpdateEntity(string entity, string state, string stateFriendlyName, string icon)
+        public void UpdateEntity(string entity, string state, string icon, string friendly_name)
         {
             var update = new HomeAssistantEntityStateUpdate()
             {
                 State = state,
                 Attributes = new HomeAssistantEntityStateUpdateAttributes()
                 {
-                    FriendlyName = stateFriendlyName,
+                    FriendlyName = friendly_name,
                     Icon = icon
                 }
             };

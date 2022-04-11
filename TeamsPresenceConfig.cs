@@ -13,11 +13,13 @@ namespace TeamsPresence
         public string AppDataRoamingPath { get; set; }
 
         public string StatusEntity { get; set; }
+        public string StatusEntityFriendlyName { get; set; }
         public string ActivityEntity { get; set; }
+        public string ActivityEntityFriendlyName { get; set; }
 
-        public Dictionary<TeamsStatus, string> FriendlyStatusNames { get; set; }
-        public Dictionary<TeamsActivity, string> FriendlyActivityNames { get; set; }
-
+        public Dictionary<TeamsStatus, string> StatusNames { get; set; }
+        public Dictionary<TeamsStatus, string> StatusIcons { get; set; }
+        public Dictionary<TeamsActivity, string> ActivityNames { get; set; }
         public Dictionary<TeamsActivity, string> ActivityIcons { get; set; }
     }
 }

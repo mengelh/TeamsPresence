@@ -21,7 +21,7 @@ namespace TeamsPresence
 
             if (File.Exists(configFile))
             {
-                Console.WriteLine("Config file found!");
+                //Console.WriteLine("Config file found!");
 
                 try
                 {
@@ -42,8 +42,10 @@ namespace TeamsPresence
                     HomeAssistantToken = "eyJ0eXAiOiJKV1...",
                     AppDataRoamingPath = "",
                     StatusEntity = "sensor.teams_status",
+                    StatusEntityFriendlyName = "Teams Status",
                     ActivityEntity = "sensor.teams_activity",
-                    FriendlyStatusNames = new Dictionary<TeamsStatus, string>()
+                    ActivityEntityFriendlyName = "Teams Activity",
+                    StatusNames = new Dictionary<TeamsStatus, string>()
                     {
                         { TeamsStatus.Available, "Available" },
                         { TeamsStatus.Busy, "Busy" },
@@ -57,7 +59,21 @@ namespace TeamsPresence
                         { TeamsStatus.Offline, "Offline" },
                         { TeamsStatus.Unknown, "Unknown" }
                     },
-                    FriendlyActivityNames = new Dictionary<TeamsActivity, string>()
+                    StatusIcons = new Dictionary<TeamsStatus, string>()
+                    {
+                        { TeamsStatus.Available, "mdi:checkbox-marked-circle" },
+                        { TeamsStatus.Busy, "mdi:checkbox-blank-circle" },
+                        { TeamsStatus.OnThePhone, "mdi:minus-circle" },
+                        { TeamsStatus.Away, "mdi:checkbox-blank-circle-outline" },
+                        { TeamsStatus.BeRightBack, "mdi:checkbox-blank-circle-outline" },
+                        { TeamsStatus.DoNotDisturb, "mdi:minus-circle" },
+                        { TeamsStatus.Presenting, "mdi:minus-circle" },
+                        { TeamsStatus.Focusing, " mdi:checkbox-blank-circle" },
+                        { TeamsStatus.InAMeeting, " mdi:checkbox-blank-circle" },
+                        { TeamsStatus.Offline, "mdi:cloud-outline-off" },
+                        { TeamsStatus.Unknown, "mdi:cloud-outline-off" }
+                    },
+                    ActivityNames = new Dictionary<TeamsActivity, string>()
                     {
                         { TeamsActivity.InACall, "In a call" },
                         { TeamsActivity.NotInACall, "Not in a call" },
@@ -102,16 +118,15 @@ namespace TeamsPresence
 
         private static void Service_StatusChanged(object sender, TeamsStatus status)
         {
-            HomeAssistantService.UpdateEntity(Config.StatusEntity, Config.FriendlyStatusNames[status], Config.FriendlyStatusNames[status], "mdi:microsoft-teams");
-
-            Console.WriteLine($"Updated status to {Config.FriendlyStatusNames[status]} ({status})");
+            HomeAssistantService.UpdateEntity(Config.StatusEntity, Config.StatusNames[status], Config.StatusIcons[status], Config.StatusEntityFriendlyName);
+            Console.WriteLine($"Updated status to {Config.StatusNames[status]} ({status})");
         }
 
         private static void Service_ActivityChanged(object sender, TeamsActivity activity)
         {
-            HomeAssistantService.UpdateEntity(Config.ActivityEntity, Config.FriendlyActivityNames[activity], Config.FriendlyActivityNames[activity], Config.ActivityIcons[activity]);
+            HomeAssistantService.UpdateEntity(Config.ActivityEntity, Config.ActivityNames[activity], Config.ActivityIcons[activity], Config.ActivityEntityFriendlyName);
 
-            Console.WriteLine($"Updated activity to {Config.FriendlyActivityNames[activity]} ({activity})");
+            Console.WriteLine($"Updated activity to {Config.ActivityNames[activity]} ({activity})");
         }
     }
 }
